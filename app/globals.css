@@ -1,26 +1,120 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #1c1917;
+  --foreground: #f5f5f4;
+  --gradient-start: #f97316;
+  --gradient-end: #f97316;
+  --gradient-blue: #f97316;
+  --gradient-cyan: #f97316;
+  --accent-orange: #f97316;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-space-grotesk);
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #f5f5f4;
+    --foreground: #1c1917;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-space-grotesk), system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    "Open Sans", "Helvetica Neue", sans-serif;
+  scroll-behavior: smooth;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* 그라데이션 텍스트 - 모노톤에서는 단색 사용 */
+.gradient-text {
+  color: var(--foreground);
+  font-weight: 700;
+}
+
+.gradient-text-blue {
+  color: var(--accent-orange);
+  font-weight: 600;
+}
+
+/* 애니메이션 배경 */
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animated-gradient {
+  background: var(--background);
+  opacity: 1;
+}
+
+/* 파티클 효과 */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* 페이드인 애니메이션 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* 글로우 효과 - 미세한 오렌지 액센트 */
+.glow {
+  box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+}
+
+.glow-hover:hover {
+  box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+/* 스크롤 인디케이터 */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.bounce-animation {
+  animation: bounce 2s infinite;
 }
