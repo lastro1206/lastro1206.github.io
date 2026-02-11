@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import Image from "next/image";
 
 export default function About() {
   const [ref, inView] = useInView({
@@ -78,11 +79,12 @@ export default function About() {
 
               {/* 프로필 이미지 컨테이너 */}
               <div className='relative w-full h-full rounded-full overflow-hidden border-2 border-stone-700'>
-                <div className='w-full h-full rounded-full bg-stone-900 flex items-center justify-center'>
-                  <div className='text-6xl font-bold text-stone-100'>
-                    홍석준
-                  </div>
-                </div>
+                <Image
+                  src='/image/portfolio.jpg'
+                  alt='홍석준'
+                  fill
+                  className='object-cover rounded-full'
+                />
               </div>
             </div>
           </motion.div>

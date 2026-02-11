@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Particle {
   initialX: number;
@@ -12,17 +12,25 @@ interface Particle {
 }
 
 export default function Hero() {
-  // 파티클 초기 위치와 애니메이션 값을 lazy initialization으로 생성
-  const [particles] = useState<Particle[]>(() => {
-    if (typeof window === "undefined") return [];
-    return Array.from({ length: 20 }, () => ({
-      initialX: Math.random() * window.innerWidth,
-      initialY: Math.random() * window.innerHeight,
-      targetX: Math.random() * window.innerWidth,
-      targetY: Math.random() * window.innerHeight,
-      duration: Math.random() * 10 + 10,
-    }));
-  });
+  const [particles, setParticles] = useState<Particle[]>([]);
+
+  useEffect(() => {
+    // 클라이언트에서만 파티클 생성 (Hydration 에러 방지)
+    if (typeof window !== "undefined") {
+      // requestAnimationFrame을 사용하여 다음 프레임에서 상태 업데이트
+      requestAnimationFrame(() => {
+        setParticles(
+          Array.from({ length: 20 }, () => ({
+            initialX: Math.random() * window.innerWidth,
+            initialY: Math.random() * window.innerHeight,
+            targetX: Math.random() * window.innerWidth,
+            targetY: Math.random() * window.innerHeight,
+            duration: Math.random() * 10 + 10,
+          }))
+        );
+      });
+    }
+  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -58,7 +66,7 @@ export default function Hero() {
       {/* 애니메이션 배경 */}
       <div className='absolute inset-0 animated-gradient opacity-20' />
 
-      {/* 파티클 효과 */}
+      {/* 파티클 효과 - 클라이언트에서만 렌더링 */}
       {particles.length > 0 && (
         <div className='absolute inset-0 overflow-hidden'>
           {particles.map((particle, i) => (

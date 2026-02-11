@@ -11,8 +11,10 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "홍석준",
-  description:
-    "창의적이고 혁신적인 웹 경험을 만들어가는 프론트엔드 개발자의 포트폴리오",
+  description: "홍석준의 포트폴리오",
+  icons: {
+    icon: "/image/portfolio.jpg",
+  },
 };
 
 export default function RootLayout({
